@@ -3,10 +3,15 @@ $(document).ready(function(){
 
 	console.log("constructors and lists");
 
-	function Logic(title, txt){
-		this.title = title;
-		this.text = txt;
-	}
+	var Logic = (function(){
+		var idcounter = 0;
+
+		return function (title, txt){
+			this.title = title;
+			this.text = txt;
+			this.id = "log" + idcounter++;
+		};
+	}());
 
 	var logics = [
 		new Logic("Black and White", "Things are rarely all one way or another."),
@@ -24,31 +29,42 @@ $(document).ready(function(){
 	];
 
 	var txtHTML = "";
-	for(var i of logics){
-		txtHTML += "<tr><td>"
-		+ i.title + "</td><td>"
-		+ i.text + "</td><td>"
-		+ "0</td><td>"
-		+ "1:00</td></tr>";
+	for(var i = 0; i < logics.length; i++){
+		txtHTML += "<tr id='" + logics[i].id + "'>"
+		+ "<td class='title'>" + logics[i].title + "</td>"
+		+ "<td class='text'>" + logics[i].text + "</td>"
+		+ "<td class='play'>0</td>"
+		+ "<td class='time'>1:00</td>"
+		+ "<td class='id'>" + logics[i].id + "</td></tr>";
 	}
 	$("#logics tr:last").after(txtHTML);
 
-	function Response(txt, confirm){
-		this.text = txt;
-		this.confirm = confirm;
-	}
+	var Response = (function(){
+		var idcounter =0;
+
+		return function(txt, confirm){
+			this.text = txt;
+			this.confirm = confirm;
+			this.id = "res" + idcounter++;
+		};
+	}());
 
 	var responses = [
 		new Response("Yes", true),
 		new Response("No", false),
 	];
 
-	function Prompt(txt, confirm, response = [], logic = []){
-		this.text = txt;
-		this.confirm = confirm;
-		this.responses = response;
-		this.logics = logic;
-	}
+	var Prompt = (function(){
+		var idcounter = 0;
+
+		return function Prompt(txt, confirm, response = [], logic = []){
+			this.text = txt;
+			this.confirm = confirm;
+			this.responses = response;
+			this.logics = logic;
+			this.id = "prm" + idcounter++;
+		};
+	}());
 
 	var prompts = [
 		new Prompt("You are willing to play.", true, [responses[0], responses[1]], []),
@@ -61,21 +77,22 @@ $(document).ready(function(){
 	];
 
 	var txtHTML = "";
-	for(var p of prompts){
-		txtHTML += "<tr><td>"
-		+ p.text + "</td><td>"
-		+ p.confirm + "</td><td>"
-		+ "0</td><td>"
-		+ "1:00</td></tr>";
+	for(var i = 0; i < prompts.length; i++){
+		txtHTML += "<tr id='" + prompts[i].id + "'>"
+		+ "<td class='text'>" + prompts[i].text + "</td>"
+		+ "<td class='confirm'>" + prompts[i].confirm + "</td>"
+		+ "<td class='play'>0</td>"
+		+ "<td class='time'>1:00</td>"
+		+ "<td>con" + i + "</td></tr>";
 	}
 	$("#prompts tr:last").after(txtHTML);
 
 
-	function Bout(prompt, responses, pick = null, time = 0){
+	function Bout(prompt, responses, pick = null){
 		this.prompt = prompt;
 		this.responses = responses;
 		this.pick = pick;
-		this.time = time;
+		this.time = new Date();
 	}
 
 	var bouts = [];
@@ -94,6 +111,13 @@ $(document).ready(function(){
 			console.log("notPlaying");
 			return;
 		}
+
+		var $prompt = $("#" + bout.prompt.id + " .play");
+		$prompt.html(parseInt($prompt.html())+1);
+
+		bout.time = new Date().getTime() - bout.time;
+		$prompt = $("#" + bout.prompt.id + " .time");
+		$prompt.html(bout.time);
 
 		var $score = $("#score");
 
@@ -143,7 +167,7 @@ $(document).ready(function(){
 	function display(bout){	
 			bouts.push(bout);
 
-			var $res = $("#res0");
+			var $res = $("#btn0");
 			$res.html(bout.responses[0].text);
 			if(bout.responses[0].confirm === true){
 				$res.removeClass("refuse");
@@ -152,7 +176,7 @@ $(document).ready(function(){
 				$res.addClass("refuse");
 				$res.removeClass("afirm");
 			}
-			$res = $("#res1");
+			$res = $("#btn1");
 			$res.html(bout.responses[1].text);
 			if(bout.responses[1].confirm === true){
 				$res.removeClass("refuse");
