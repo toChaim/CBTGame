@@ -3,6 +3,7 @@ header{
 	font-size: 1.5em;
 }
 table{
+	padding: 10px;
 	width: 90vw;
 }
 td, th{
@@ -16,8 +17,7 @@ td, th{
 }
 #board{
 	padding: 10px;
-	width: 90vw;
-	height: 50vh;
+	width: 80vw;
 	border: 1px solid green;
 }
 .response{
