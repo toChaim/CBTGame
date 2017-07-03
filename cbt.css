@@ -1,0 +1,45 @@
+header{
+	text-align: center;
+	font-size: 1.5em;
+}
+table{
+	width: 90vw;
+}
+td, th{
+	text-align: center;
+	border: 1px solid black;
+}
+#game{
+	padding: 10px;
+	width: 90vw;
+	border: 1px solid green;
+}
+#board{
+	padding: 10px;
+	width: 90vw;
+	height: 50vh;
+	border: 1px solid green;
+}
+.response{
+	text-align: center;
+	margin: auto;
+	border: 1px solid blue;
+	display: inline-block;
+}
+#prompt{
+	display: block;
+	width: 100%;
+	font-size: 1.5em;
+	text-align: center;
+	border: 1px solid pink;
+}
+.easiest .response{
+	height: 100%;
+	width: 49%;
+}
+.easiest .afirm{
+	background-color: lightgreen;
+}
+.easiest .refuse{
+	background-color: #e64d4d;
+}

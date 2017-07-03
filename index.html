@@ -7,26 +7,40 @@
 </head>
 <body>
 	<div class="container">
-		<header><h1>Welcome to the CBT game</h1></header>
-		<main>
-			<article>
-	 			<form action="">
-					<button type="button" id="plybtn">Play</button>
-					<div id="score">0<div>
-					<a href="#propts">Prompts</a>
-					<a href="#ligic">Logic Errors</a>
-				</form>
-			</article>
-		</main>
-		<div >
-			<ul id="prompts"><h2>Prompts</h2>
-				
-			</ul>
-
-			<ul id="logic"><h2>Oops Logic</h2>
-				
-			</ul>
-		</div>
+		<header>Welcome to the CBT game.</header>
+		<form action="" id="game" class="easiest">
+			<div id="board">
+				<div id="prompt"></div>
+				<button type="button" id="res0" class="response"></button>
+				<button type="button" id="res1" class="response"></button>
+			</div>
+			<div id="settings">
+				<button type="button" id="playstop">Play</button>
+				<div id="score">0</div>
+			</div>
+			<div id="prompts">
+				<table>
+					<thead>Common Automatic Thoughts
+						<tr>
+							<th>Prompt</th>
+							<th>Confirm</th>
+							<th>#Plays</th>
+							<th>AvgTime</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
+			<div id="logics"><table>
+				<thead>Common Problemns in Thinking
+					<tr>
+						<th>Title</th>
+						<th>Text</th>
+						<th>#Plays</th>
+						<th>AvgTime</th>
+					</tr>
+				</thead>
+			</table></div>
+		</form>
 	</div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="cbt.js"></script>
