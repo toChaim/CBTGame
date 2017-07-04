@@ -83,7 +83,7 @@ $(document).ready(function(){
 		+ "<td class='confirm'>" + prompts[i].confirm + "</td>"
 		+ "<td class='play'>0</td>"
 		+ "<td class='time'>1:00</td>"
-		+ "<td>con" + i + "</td></tr>";
+		+ "<td>" + prompts[i].id + "</td></tr>";
 	}
 	$("#prompts tr:last").after(txtHTML);
 
@@ -117,7 +117,17 @@ $(document).ready(function(){
 
 		bout.time = new Date().getTime() - bout.time;
 		$prompt = $("#" + bout.prompt.id + " .time");
-		$prompt.html(bout.time);
+		var avgTime = Math.floor(bouts.filter(
+			function(b){return b.prompt.id == bout.prompt.id;}
+			).reduce(
+			function(a, b){
+				return{time: a.time + b.time};
+			}
+			).time / bouts.filter(
+			function(b){return b.prompt.id == bout.prompt.id;}
+			).length);
+		console.log(avgTime);
+		$prompt.html(avgTime);
 
 		var $score = $("#score");
 
